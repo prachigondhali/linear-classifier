@@ -1,0 +1,36 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: linear-regression
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: linear-regression
+    spec:
+      containers:
+      - name: linear-regression-service
+        image: prachigondhali/linear-regression:latest
+        command:
+        - /bin/bash
+        - -c
+        args:
+        - python linear.py
+        - sleep 3000
+        ports:
+        - containerPort: 9000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    run: linear-regression-service
+  name: linear-regression-service
+spec:
+  ports:
+  - port: 9000
+    targetPort: 9000
+  selector:
+    app: linear-regression
+  type: LoadBalancer
