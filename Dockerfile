@@ -1,7 +1,5 @@
 FROM ubuntu
 
-#ADD  https://github.com/prachigondhali/linear-classifier.git /test
-
 RUN \
  apt-get update && \
  apt-get install python3.5 -y && \
