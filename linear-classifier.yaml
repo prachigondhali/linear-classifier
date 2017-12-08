@@ -1,22 +1,22 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: linear-regression
+  name: linear-classifier
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: linear-regression
+        app: linear-classifier
     spec:
       containers:
-      - name: linear-regression-service
-        image: prachigondhali/linear-regression:latest
+      - name: linear-classifier-service
+        image: prachigondhali/linear-classifier:latest
         command:
         - /bin/bash
         - -c
         args:
-        - python linear.py
+        - python linear-classifie_Pratikshar.py
         - sleep 3000
         ports:
         - containerPort: 9000
@@ -25,12 +25,12 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    run: linear-regression-service
-  name: linear-regression-service
+    run: linear-classifier-service
+  name: linear-classifier-service
 spec:
   ports:
   - port: 9000
     targetPort: 9000
   selector:
-    app: linear-regression
+    app: linear-classifier
   type: LoadBalancer
